@@ -52,7 +52,7 @@ nav{position:absolute;top:0;width:100%;z-index:100;padding:20px 48px;display:fle
 .menu-footer a:hover{color:var(--brown)}
 
 /* PANELS */
-.panel{min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:80px 48px}
+.panel{min-height:100vh;width:100%;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:60px 48px}
 
 /* HERO */
 #s1{background:var(--bg)}
@@ -174,19 +174,36 @@ h2 em{color:var(--rose);font-style:italic}
 .loc-btn span{color:var(--rose);font-size:.8rem;transition:opacity .3s}
 .loc-btn:hover span{opacity:.7}
 
-/* LOCATION POPUP */
+/* LOCATION DRAWER */
 .loc-popup-wrap{position:fixed;inset:0;z-index:400;pointer-events:none}
 .loc-popup-wrap.open{pointer-events:all}
-.loc-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .3s}
-.loc-popup-wrap.open .loc-backdrop{background:rgba(58,42,34,0.2)}
-.loc-popup{position:absolute;background:#FAF7F4;border:1px solid var(--border);border-radius:12px;padding:20px;width:240px;opacity:0;transform:translateY(8px) scale(.97);transition:opacity .25s,transform .25s;pointer-events:none;box-shadow:0 16px 48px rgba(58,42,34,0.12)}
-.loc-popup-wrap.open .loc-popup{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
-.loc-options{display:flex;flex-direction:column;gap:4px}
-.loc-opt{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;text-decoration:none;transition:background .2s}
-.loc-opt:hover{background:var(--bg2)}
-.loc-opt-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.loc-opt-text strong{display:block;font-size:.78rem;color:var(--text);font-weight:600}
-.loc-opt-text span{font-size:.65rem;color:var(--muted)}
+.loc-backdrop{position:absolute;inset:0;background:rgba(0,0,0,0);transition:background .35s}
+.loc-popup-wrap.open .loc-backdrop{background:rgba(58,42,34,0.35)}
+.loc-drawer{
+  position:fixed;bottom:0;left:0;right:0;
+  background:#FAF7F4;
+  border-radius:20px 20px 0 0;
+  padding:0 0 40px;
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 -8px 40px rgba(58,42,34,0.12);
+  border-top:1px solid var(--border);
+  max-width:480px;
+  margin:0 auto;
+}
+.loc-popup-wrap.open .loc-drawer{transform:translateY(0)}
+.loc-drawer-handle{width:36px;height:4px;background:rgba(58,42,34,0.15);border-radius:2px;margin:12px auto 20px}
+.loc-drawer-title{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);text-align:center;margin-bottom:4px}
+.loc-drawer-subtitle{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--text);text-align:center;margin-bottom:24px;font-weight:400}
+.loc-options{display:flex;flex-direction:column;gap:2px;padding:0 20px}
+.loc-opt{display:flex;align-items:center;gap:16px;padding:16px 20px;border-radius:12px;text-decoration:none;transition:background .2s;background:var(--bg2)}
+.loc-opt:hover{background:var(--bg3)}
+.loc-opt-icon{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.loc-opt-text strong{display:block;font-size:.85rem;color:var(--text);font-weight:600}
+.loc-opt-text span{font-size:.72rem;color:var(--muted)}
+.loc-close-row{padding:20px 20px 0;text-align:center}
+.loc-close-row button{background:none;border:1px solid var(--border);color:var(--muted);font-family:'Montserrat',sans-serif;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;padding:12px 32px;cursor:pointer;transition:all .2s;border-radius:4px;width:calc(100% - 40px)}
+.loc-close-row button:hover{border-color:var(--nude);color:var(--brown)}
 
 /* FOOTER */
 footer{background:var(--bg3);padding:60px 48px 32px;border-top:1px solid var(--border)}
@@ -282,7 +299,7 @@ footer ul li a:hover{color:var(--brown)}
     <div class="s1-content">
       <div class="eyebrow">
         Ginecologia especializada com foco em prevenção, diagnóstico e saúde íntima da mulher
-        <img src="logo.png" alt="Logo" style="width:32px;height:32px;object-fit:contain;mix-blend-mode:multiply;opacity:.85;vertical-align:middle"/>
+        <img src="logo.png" alt="Logo" style="width:48px;height:48px;object-fit:contain;mix-blend-mode:multiply;opacity:.85;vertical-align:middle;margin-left:8px"/>
       </div>
       <h1>Dra. <em>Mariana</em><br>Ribeiro de<br>Carvalho</h1>
       <p class="hero-tagline">Cuidado ginecológico especializado com foco em prevenção, diagnóstico e tranquilidade da mulher.</p>
@@ -293,7 +310,7 @@ footer ul li a:hover{color:var(--brown)}
           Agendar pelo WhatsApp
         </a>
         <a href="https://www.doctoralia.com.br/mariana-de-sousa-ribeiro-de-carvalho/ginecologista/belem" target="_blank" class="btn-ghost">Ver Perfil Doctoralia</a>
-        <button class="btn-ghost" onclick="openLoc(this)">
+        <button class="btn-ghost" onclick="openLoc()">
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
           Como Chegar
         </button>
@@ -543,29 +560,38 @@ footer ul li a:hover{color:var(--brown)}
   </div>
 </footer>
 
-<!-- LOCATION POPUP -->
+<!-- LOCATION DRAWER -->
 <div class="loc-popup-wrap" id="locPopup">
   <div class="loc-backdrop" onclick="closeLoc()"></div>
-  <div class="loc-popup" id="locPopupBox">
+  <div class="loc-drawer" id="locPopupBox">
+    <div class="loc-drawer-handle"></div>
+    <p class="loc-drawer-title">Como chegar</p>
+    <p class="loc-drawer-subtitle">Mirai Offices · Belém, PA</p>
     <div class="loc-options">
       <a href="https://waze.com/ul?q=Mirai+Offices+Belem+Para&navigate=yes" target="_blank" class="loc-opt">
-        <div class="loc-opt-icon" style="background:#33CCFF14">
-          <svg width="24" height="24" viewBox="0 0 100 100" fill="none"><path d="M50 5C27 5 10 22 10 43c0 13 6.5 24.5 16.5 31.5l-2 10 10-5C37.5 81 43.5 82 50 82c23 0 40-17 40-39C90 22 73 5 50 5z" fill="#33CCFF"/><ellipse cx="38" cy="42" rx="7" ry="8" fill="#fff"/><ellipse cx="62" cy="42" rx="7" ry="8" fill="#fff"/><circle cx="40" cy="43" r="4" fill="#1C1C1C"/><circle cx="64" cy="43" r="4" fill="#1C1C1C"/><path d="M38 58 Q50 67 62 58" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M68 18 Q72 10 78 8" stroke="#1C1C1C" stroke-width="2.5" stroke-linecap="round"/><circle cx="78" cy="7" r="4" fill="#FF6B35"/></svg>
+        <div class="loc-opt-icon" style="background:#33CCFF18">
+          <svg width="26" height="26" viewBox="0 0 100 100" fill="none"><path d="M50 5C27 5 10 22 10 43c0 13 6.5 24.5 16.5 31.5l-2 10 10-5C37.5 81 43.5 82 50 82c23 0 40-17 40-39C90 22 73 5 50 5z" fill="#33CCFF"/><ellipse cx="38" cy="42" rx="7" ry="8" fill="#fff"/><ellipse cx="62" cy="42" rx="7" ry="8" fill="#fff"/><circle cx="40" cy="43" r="4" fill="#1C1C1C"/><circle cx="64" cy="43" r="4" fill="#1C1C1C"/><path d="M38 58 Q50 67 62 58" stroke="#1C1C1C" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M68 18 Q72 10 78 8" stroke="#1C1C1C" stroke-width="2.5" stroke-linecap="round"/><circle cx="78" cy="7" r="4" fill="#FF6B35"/></svg>
         </div>
-        <div class="loc-opt-text"><strong>Waze</strong><span>Trânsito em tempo real</span></div>
+        <div class="loc-opt-text"><strong>Waze</strong><span>Navegação com trânsito em tempo real</span></div>
+        <svg style="margin-left:auto;opacity:.3" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </a>
       <a href="https://maps.google.com/?q=Mirai+Offices+Belem+Para" target="_blank" class="loc-opt">
         <div class="loc-opt-icon" style="background:#EA433514">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/><path d="M12 2C8.13 2 5 5.13 5 9c0 2.12.75 4.06 2 5.57L12 2z" fill="#34A853"/><path d="M12 2l-5 12.57C8.13 15.44 10 16 12 16s3.87-.56 5-1.43L12 2z" fill="#FBBC05"/><path d="M19 9c0-3.87-3.13-7-7-7l5 12.57C18.25 13.06 19 11.12 19 9z" fill="#4285F4"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="#EA4335"/><path d="M12 2C8.13 2 5 5.13 5 9c0 2.12.75 4.06 2 5.57L12 2z" fill="#34A853"/><path d="M12 2l-5 12.57C8.13 15.44 10 16 12 16s3.87-.56 5-1.43L12 2z" fill="#FBBC05"/><path d="M19 9c0-3.87-3.13-7-7-7l5 12.57C18.25 13.06 19 11.12 19 9z" fill="#4285F4"/><circle cx="12" cy="9" r="3" fill="#fff"/></svg>
         </div>
-        <div class="loc-opt-text"><strong>Google Maps</strong><span>Ver rota e local</span></div>
+        <div class="loc-opt-text"><strong>Google Maps</strong><span>Ver rota e detalhes do local</span></div>
+        <svg style="margin-left:auto;opacity:.3" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </a>
       <a href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Mirai+Offices+Belem+Para" target="_blank" class="loc-opt">
-        <div class="loc-opt-icon" style="background:#00000010">
-          <svg width="22" height="22" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="8" fill="#000" opacity=".08"/><path d="M16 16h6v10c0 3.3 1.2 4.5 3 4.5s3-1.2 3-4.5V16h6v10c0 6.6-3.3 9.7-9 9.7S16 32.6 16 26V16z" fill="#000" opacity=".8"/></svg>
+        <div class="loc-opt-icon" style="background:#00000008">
+          <svg width="24" height="24" viewBox="0 0 48 48" fill="none"><path d="M16 16h6v10c0 3.3 1.2 4.5 3 4.5s3-1.2 3-4.5V16h6v10c0 6.6-3.3 9.7-9 9.7S16 32.6 16 26V16z" fill="#000" opacity=".75"/></svg>
         </div>
-        <div class="loc-opt-text"><strong>Uber</strong><span>Solicitar corrida</span></div>
+        <div class="loc-opt-text"><strong>Uber</strong><span>Solicitar corrida até a clínica</span></div>
+        <svg style="margin-left:auto;opacity:.3" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
       </a>
+    </div>
+    <div class="loc-close-row">
+      <button onclick="closeLoc()">Fechar</button>
     </div>
   </div>
 </div>
@@ -591,21 +617,8 @@ function closeMenu(){
   document.getElementById('menu').classList.remove('open');
   document.getElementById('menu-overlay').classList.remove('open');
 }
-function openLoc(btn){
-  const popup=document.getElementById('locPopupBox');
-  const wrap=document.getElementById('locPopup');
-  wrap.classList.add('open');
-  requestAnimationFrame(()=>{
-    const r=btn.getBoundingClientRect();
-    const h=popup.offsetHeight;
-    const w=popup.offsetWidth;
-    let top=r.top-h-12;
-    let left=r.left;
-    if(left+w>window.innerWidth-16) left=window.innerWidth-w-16;
-    if(top<16) top=r.bottom+12;
-    popup.style.top=top+'px';
-    popup.style.left=left+'px';
-  });
+function openLoc(){
+  document.getElementById('locPopup').classList.add('open');
 }
 function closeLoc(){document.getElementById('locPopup').classList.remove('open')}
 </script>
